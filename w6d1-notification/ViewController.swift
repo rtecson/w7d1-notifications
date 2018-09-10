@@ -15,13 +15,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        // Request permission -- you want to ask this within the best context from the users' perspective
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound, .badge]) { [weak self] (granted: Bool, error: Error?) in
             if granted {
                 print("granted")
                 self?.scheduleNotification()
             }
+            else {
+                print("not granted")
+            }
         }
+        scheduleNotification()
     }
     
     private func scheduleNotification() {
